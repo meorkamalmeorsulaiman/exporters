@@ -1,0 +1,30 @@
+---
+modules:
+  if_stats:
+    metrics:
+    - name: if_transmit
+      help: Output bytes
+      type: object
+      path: '{ .results[*] }'
+      labels:
+        ifname: '{ .port_id }'
+      valuetype: counter
+      values:
+        bytes: '{ .tx_bytes }'
+
+    - name: if_received
+      help: Input bytes
+      type: object
+      path: '{ .results[*] }'
+      labels:
+        ifname: '{ .port_id }'
+      valuetype: counter
+      values:
+        bytes: '{ .rx_bytes }'
+
+    http_client_config:
+      tls_config:
+        insecure_skip_verify: true
+      authorization:
+        type: Token
+        credentials: ${TOKEN}
